@@ -11,7 +11,6 @@ defmodule OrigamiWeb.UserController do
         conn
         |> put_session(:current_user_id, user.id)
         |> put_status(:ok)
-        |> put_resp_header("location", user_path(conn, :show, user))
         |> render("show.json", user: user)
 
       {:error, message} ->

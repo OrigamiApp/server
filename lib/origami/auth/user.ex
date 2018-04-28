@@ -6,6 +6,7 @@ defmodule Origami.Auth.User do
   schema "users" do
     field :email, :string
     field :fb_access_token, :string
+    has_many :tags, Origami.Tags.Tag
 
     timestamps()
   end
