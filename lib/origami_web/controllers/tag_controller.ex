@@ -12,6 +12,8 @@ defmodule OrigamiWeb.TagController do
   end
 
   def create(conn, %{"tag" => tag_params}) do
+    user_id = get_session(conn, :current_user_id)
+    tag_params = Map.put(tag_params, "user_id", user_id)
     with {:ok, %Tag{} = tag} <- Tags.create_tag(tag_params) do
       conn
       |> put_status(:created)

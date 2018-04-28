@@ -16,6 +16,7 @@ defmodule Origami.Auth do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:tags)
   end
 
   @doc """
@@ -32,11 +33,15 @@ defmodule Origami.Auth do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.get!(User, id)
+    |> Repo.preload(:tags)
+  end
 
   def get_user_by_email(email) do
     (from u in User, where: u.email == ^email)
     |> Repo.one()
+    |> Repo.preload(:tags)
   end
 
   @doc """

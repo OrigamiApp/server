@@ -15,6 +15,7 @@ defmodule Origami.Tags do
   """
   def list_tags do
     Repo.all(Tag)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -31,7 +32,10 @@ defmodule Origami.Tags do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tag!(id), do: Repo.get!(Tag, id)
+  def get_tag!(id) do
+    Repo.get!(Tag, id)
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a tag.

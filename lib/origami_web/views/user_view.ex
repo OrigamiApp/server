@@ -11,8 +11,10 @@ defmodule OrigamiWeb.UserView do
   end
 
   def render("user.json", %{user: user}) do
+    tags = Enum.map(user.tags, &(&1.id))
     %{id: user.id,
       email: user.email,
-      fb_access_token: user.fb_access_token}
+      fb_access_token: user.fb_access_token,
+      tags: tags}
   end
 end

@@ -12,13 +12,11 @@ defmodule OrigamiWeb.Router do
 
   scope "/", OrigamiWeb do
     pipe_through :api
-
     get "/login", UserController, :login
   end
 
   scope "/", OrigamiWeb do
     pipe_through [:api, :api_auth]
-
     resources "/tags", TagController
   end
 

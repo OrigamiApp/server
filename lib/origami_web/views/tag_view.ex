@@ -16,6 +16,7 @@ defmodule OrigamiWeb.TagView do
       image: tag.image,
       background: tag.background,
       lat: tag.lat,
-      long: tag.long}
+      long: tag.long,
+      user_id: tag.user_id}
   end
 end
