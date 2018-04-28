@@ -3,9 +3,9 @@ defmodule Origami.Tags.Tag do
   import Ecto.Changeset
 
   schema "tags" do
-    field :background, Ecto.UUID
+    field :background, :string
     field :description, :string
-    field :image, Ecto.UUID
+    field :image, :string
     field :lat, :integer
     field :long, :integer
     belongs_to :user, Origami.Auth.User
