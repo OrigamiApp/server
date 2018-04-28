@@ -7,5 +7,7 @@ defmodule OrigamiWeb.Router do
 
   scope "/api", OrigamiWeb do
     pipe_through :api
+
+    resources "/users", OrigamiWeb.UserController, except: [:new, :edit]
   end
 end
