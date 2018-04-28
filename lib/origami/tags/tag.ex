@@ -6,8 +6,8 @@ defmodule Origami.Tags.Tag do
     field :background, :string
     field :description, :string
     field :image, :string
-    field :lat, :integer
-    field :long, :integer
+    field :lat, :float
+    field :long, :float
     belongs_to :user, Origami.Auth.User
 
     timestamps()
