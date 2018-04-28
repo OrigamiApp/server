@@ -39,4 +39,8 @@ defmodule OrigamiWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def login(conn, %{"access_token" => access_token}) do
+    Auth.authenticate_user(access_token)
+  end
 end

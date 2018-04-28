@@ -1,6 +1,9 @@
 defmodule Origami.Auth do
+  import Ecto.Query, warn: false
+
   alias Origami.Repo
   alias Origami.Auth.User
+  alias Origami.Facebook
 
   @doc """
   Returns the list of users.
@@ -30,6 +33,11 @@ defmodule Origami.Auth do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  def get_user_by_email(email) do
+    (from u in User, where: u.email == ^email)
+    |> Repo.one()
+  end
 
   @doc """
   Creates a user.
@@ -95,4 +103,18 @@ defmodule Origami.Auth do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def authenticate_user(access_token) do
+    Facebook.fetch_email(access_token)
+    |> verify_user(access_token)
+  end
+
+  defp verify_user({:ok, email}, access_token) do
+    case get_user_by_email(email) do
+      nil -> create_user(%{"email" => email, "fb_access_token" => access_token})
+      user -> user
+    end
+  end
+
+  defp verify_user(error, _), do: error
 end

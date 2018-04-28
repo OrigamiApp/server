@@ -8,6 +8,7 @@ defmodule Origami.Repo.Migrations.CreateTags do
       add :background, :binary_id
       add :lat, :integer
       add :long, :integer
+      timestamps()
     end
   end
 end
