@@ -41,6 +41,17 @@ defmodule OrigamiWeb.UserController do
   end
 
   def login(conn, %{"access_token" => access_token}) do
-    Auth.authenticate_user(access_token)
+    case Auth.authenticate_user(access_token) do
+      {:ok, user} ->
+        conn
+        |> put_status(:ok)
+        |> put_resp_header("location", user_path(conn, :show, user))
+        |> render("show.json", user: user)
+
+      {:error, message} ->
+        conn
+        |> put_status(:unauthorized)
+        |> render(OrigamiWeb.ErrorView, "401.json", message: message)
+    end
   end
 end

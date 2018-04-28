@@ -112,7 +112,7 @@ defmodule Origami.Auth do
   defp verify_user({:ok, email}, access_token) do
     case get_user_by_email(email) do
       nil -> create_user(%{"email" => email, "fb_access_token" => access_token})
-      user -> user
+      user -> {:ok, user}
     end
   end
 

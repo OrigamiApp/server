@@ -5,9 +5,10 @@ defmodule OrigamiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", OrigamiWeb do
+  scope "/", OrigamiWeb do
     pipe_through :api
 
-    resources "/users", OrigamiWeb.UserController, except: [:new, :edit]
+    get "/login", UserController, :login
+    resources "/users", UserController, except: [:new, :edit]
   end
 end
